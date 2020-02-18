@@ -18,9 +18,13 @@ class Select_class extends Database{
 //****  Select for page nation 8 records only per page *********
     public function Select_all_users($start_from,$record_per_page){
         
-        $query ="Select * from tbl_users LIMIT $start_from,$record_per_page" ;
+// $query ="Select * from tbl_users LIMIT $start_from,$record_per_page" ;
+
+       // -------------- Using Left Join -----------------------------------------
+       $query = "Select tbl_users.`id`, tbl_users.`username`, tbl_users.`password`, tbl_users.`email`, position.`role`, position.`salary` From tbl_users ,position Where position.`role_id` = tbl_users.`role`  LIMIT $start_from,$record_per_page";
         $result=mysqli_query($this->connection,$query);
         return $result;
+        // --------------- end left join
 
     }
 /// ************* End Pagenation Select ***********************
@@ -39,7 +43,9 @@ public function check_user($username,$email){
 // ******************   Start search query  ***********************
 public function search_query($search_text){
 
-    $query = "Select * from tbl_users where concat(id,username,email) LIKE '%$search_text%'";
+  //  $query = "Select * from tbl_users where concat(id,username,email) LIKE '%$search_text%'";
+  $query = "Select * From tbl_users as Employee LEFT JOIN position as Pos
+   ON Employee.role = Pos.role_id WHERE concat( username LIKE '%$search_text%' || email LIKE '%$search_text%')  ";
     $result=mysqli_query($this->connection,$query);
     return $result;
 }

@@ -9,7 +9,7 @@ $search_result_message = "";
 
 <?php
 // *** function for Pagenation ***
-$record_per_page =8;
+$record_per_page = 5;
 $page ='';
 if(isset($_GET['page'])){
 
@@ -76,27 +76,31 @@ else{
         <div class="header">
             <div class="container-wrapper">
                 <div class="Logo-wrapper">
-                    CMS System
+                   <h2> CMS System</h2>
                 </div>
             </div>
+</div>
+<br><br>
             <section class="table">
                 <center>
+                    <h3>Add Employee</h3><br>
                     <form method="post" action="functions/reg_func.php">
-                    <input type="text" name="username" placeholder="Username"> <br><br>
-                    <input type="password" name="password" placeholder="Password"> <br>  <br>
-                    <input type="text" name="email" placeholder="Email"><br><br>
-                    <input type ="submit" name="reg-btn" value="Submit"><br><br>
+                    <input type="text" name="username" placeholder="Username"> <br>
+                    <input type="password" name="password" placeholder="Password"> <br>  
+                    <input type="text" name="email" placeholder="Email"><br>
+                    <input type="number" name="role_id" placeholder="Role"><br>
+                    <input type ="submit" name="reg-btn" value="Submit"><br>
                 
                 </form>
-               <br>
+               <br><br>
                <form method="post" action="index.php">
                    <input type="text" name="search-text"placeholder="search..."/>
                    <input type ="submit" name="search-btn" value="Search">
                 </form> 
-                <br>
+               
                 <table>
                     <thead>
-                        <th>ID</th><th>Username</th><th>Password</th><th>Email</th><th>Edit</th>
+                        <th>ID</th><th>Username</th><th>Password</th><th>Email</th><th>Role</th><th>Salary</th><th>Edit</th><th>Edit</th>
 
                     </thead>
                     <tbody>
@@ -111,7 +115,10 @@ else{
                             <td><?php echo  $row['username'];?></td>
                             <td><?php echo  $row['password'];?></td>
                             <td><?php echo  $row['email'];?></td>
+                            <td><?php echo  $row['role'];?></td>
+                            <td><?php echo  $row['salary'];?></td>
                             <td><a href="Edit.php?id=<?php echo $row['id'];?>">Edit</td>
+                            <td><a href="functions/delete_func.php?id=<?php echo $row['id'];?>">Remove</td>
                             
 
                         </tr>

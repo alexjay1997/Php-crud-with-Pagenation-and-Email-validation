@@ -13,7 +13,7 @@ $password = mysqli_real_escape_string($insert_conn->connection,$_POST['password'
 $Encrypt_password = password_hash($password, PASSWORD_DEFAULT); 
 
 $email = mysqli_real_escape_string($insert_conn->connection,$_POST['email']);
-
+$role_id = mysqli_real_escape_string($insert_conn->connection,$_POST['role_id']);
 
 //******** check if user is already exist ********/
 $conn_select = new Select_class();
@@ -29,17 +29,17 @@ if(mysqli_num_rows($check) >0 ){
 }
 // end of check
 
-
+//************** Start Validate email  *******************************
 elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)==true) {
     echo"Email Not valid!!";
    // echo"<script>window.location.href='../index.php'</script>";
-
+// ******************  END *******************************************
 }
 
 else{
 
    
-$create_new_user = $insert_conn->Insert_new_user($username,$Encrypt_password,$email);
+$create_new_user = $insert_conn->Insert_new_user($username,$Encrypt_password,$email,$role_id);
 if($create_new_user){
     header('location:../index.php');
 
